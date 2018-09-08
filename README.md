@@ -13,7 +13,8 @@ A boilerplate to get you started with your PHP projects easily, with a little to
 - Well defined folder structure
 
 To get started, clone this repo
-> git clone https://github.com/DannySofftie/php-boilerplate.git
+> git clone
+[https://github.com/DannySofftie/php-boilerplate.git](https://github.com/DannySofftie/php-boilerplate.git)
 
 and run
 > composer install
