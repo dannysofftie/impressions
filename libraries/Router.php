@@ -194,12 +194,16 @@ class Router
     private static function groupUserParams()
     {
         $method = '';
-
-        var_dump(self::$userParamRoutes);
+        $path = '';
 
         foreach (self::$userParamRoutes as $key => $value) {
             if (strval($value['path']) === self::$incomingUrl && $value['request'] === $_SERVER['REQUEST_METHOD']) {
+                $path = $value['path'];
             }
         }
+
+        $index = array_search($path, array_column(self::$userParamRoutes, 'path'));
+        
+        echo $index;
     }
 }
