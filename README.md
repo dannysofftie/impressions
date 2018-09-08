@@ -12,6 +12,12 @@ A boilerplate to get you started with your PHP projects easily, with a little to
 - Session library to manage your app sessions easily
 - Well defined folder structure
 
+To get started, clone this repo
+> git clone https://github.com/DannySofftie/php-boilerplate.git
+
+and run
+> composer install
+
 ## Folder structure
 
 ```js
@@ -26,6 +32,7 @@ libraries
     - Json.php
     - Mailer.php
     - Request.php
+    - Router.php
     - Session.php
 models
     - Database.php
@@ -102,3 +109,26 @@ use Libraries\Router;
 
 Router::get('/products/categories-list', 'listCategories');
 ```
+
+## Request
+
+To make requests to external services and APIs, make requests as below
+
+```php
+use Libraries\Request;
+
+$data = [
+    'samplekey' => 'value',
+    'otherkey' => 'othervalue'
+];
+
+$headers = [
+    'Content-Type' => 'application/json',
+    'Content-Length' => sizeof($data)
+];
+
+$response = Request::post('https://example.com', $data, $headers);
+// the $response variable contains response from the request
+```
+
+The request library supports POST, GET, PUT, PATCH and DELETE requests.
