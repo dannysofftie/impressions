@@ -1,0 +1,10 @@
+{
+    "name": "your_project_name",
+    "description": "A short description of your project",
+    "type": "project",
+    "require": {
+        "illuminate/database": "*",
+        "phpmailer/phpmailer": "~6.0",
+        "league/oauth2-google": "*"
+    }
+}
