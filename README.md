@@ -14,13 +14,15 @@ A boilerplate to get you started with your PHP projects easily, with a little to
 
 To get started, clone this repo
 
-``` 
+``` md
 git clone https://github.com/DannySofftie/php-boilerplate.git 
 ```
 
-
 and run
-> composer install
+
+```md
+composer install
+```
 
 ## Folder structure
 
