@@ -21,7 +21,7 @@ git clone https://github.com/DannySofftie/php-boilerplate.git
 and run
 
 ```md
-composer install
+cd php-boilerplate && composer install
 ```
 
 ## Folder structure
