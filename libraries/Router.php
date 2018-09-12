@@ -176,7 +176,7 @@ class Router
 
         if (!class_exists($matchedController)) {
             // throw new Exception('Class ' . ucfirst($urlGroup[0]) . ' not found');
-            throw new \Exception('Base controller'. $matchedController . ' not found');
+            throw new \Exception('Base controller '. $matchedController . ' not found');
         } else {
             // if second argument in path is a method in base controller
             if (method_exists($matchedController, $methodToExecute)):
