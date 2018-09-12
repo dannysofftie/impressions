@@ -205,5 +205,12 @@ class Router
         $index = array_search($path, array_column(self::$userParamRoutes, 'path'));
         
         echo $index;
+
+        // TO BE DONE
+        // accept user custom parameters e.g /user/:id/:post-id
+
+
+        // also, allow user to pass search queries and parse the search query, return as an array as a parameter to the
+        // the called function
     }
 }
