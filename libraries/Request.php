@@ -13,35 +13,35 @@ class Request
      *
      * @var [resource]
      */
-    private $curl;
+    private static $curl;
 
     /**
      * Curl response
      *
      * @var [string]
      */
-    private $response;
+    private static $response;
 
     /**
      * Error message returned by curl
      *
      * @var [string]
      */
-    private $error;
+    private static $error;
 
     /**
      * Error number returned by curl
      *
      * @var [int]
      */
-    private $errorNo;
+    private static $errorNo;
 
     /**
      * HTTP status code from external resource response
      *
      * @var [int]
      */
-    private $httpStatusCode;
+    private static $httpStatusCode;
 
     /**
      * Initialize curl and set options appropriately
@@ -51,13 +51,13 @@ class Request
      */
     public function __construct($url, $method)
     {
-        $this->curl = curl_init();
-        curl_setopt($this->curl, CURLOPT_URL, $url);
-        curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $method);
-        curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, 5);
-        curl_setopt($this->curl, CURLOPT_TIMEOUT, 20);
-        curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, false);
+        self::$curl = curl_init();
+        curl_setopt(self::$curl, CURLOPT_URL, $url);
+        curl_setopt(self::$curl, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt(self::$curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt(self::$curl, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt(self::$curl, CURLOPT_TIMEOUT, 20);
+        curl_setopt(self::$curl, CURLOPT_SSL_VERIFYPEER, false);
     }
 
     /**
@@ -67,12 +67,12 @@ class Request
      */
     private static function handleErrors()
     {
-        $this->error = curl_error($this->curl);
-        $this->errorNo = curl_errno($this->curl);
-        $this->httpStatusCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
+        self::$error = curl_error(self::$curl);
+        self::$errorNo = curl_errno(self::$curl);
+        self::$httpStatusCode = curl_getinfo(self::$curl, CURLINFO_HTTP_CODE);
 
-        if (0 !== $this->errorNo) {
-            throw new RuntimeException($this->error, $this->errorNo);
+        if (0 !== self::$errorNo) {
+            throw new \RuntimeException(self::$error, self::$errorNo);
         }
     }
 
@@ -88,19 +88,19 @@ class Request
         new self($url, 'POST');
 
         // set post fields here before executing
-        curl_setopt($this->curl, CURLOPT_POSTFIELDS, JSON::stringify($data));
+        curl_setopt(self::$curl, CURLOPT_POSTFIELDS, JSON::stringify($data));
 
         if (count($headers)) {
-            curl_setopt($this->curl, CURLOPT_HTTPHEADER, $header);
+            curl_setopt(self::$curl, CURLOPT_HTTPHEADER, $header);
         }
 
-        $this->response = curl_exec($this->curl);
+        self::$response = curl_exec(self::$curl);
 
         self::handleErrors();
 
-        curl_close($this->curl);
+        curl_close(self::$curl);
 
-        return $this->response;
+        return self::$response;
     }
 
     /**
@@ -109,17 +109,17 @@ class Request
      * @param [string] $url
      * @return array
      */
-    private static function get($url)
+    public static function get($url)
     {
         new self($url, 'GET');
 
-        $this->response = curl_exec($this->curl);
+        self::$response =  curl_exec(self::$curl);
         
         self::handleErrors();
 
-        curl_close($this->curl);
+        curl_close(self::$curl);
 
-        return $this->response;
+        return self::$response;
     }
 
     /**
@@ -128,18 +128,18 @@ class Request
      * @param [string] $url
      * @return array
      */
-    private static function put($url, $data)
+    public static function put($url, $data)
     {
         new self($url, 'PUT');
 
-        curl_setopt($this->curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt(self::$curl, CURLOPT_POSTFIELDS, $data);
 
-        $this->response = curl_exec($this->curl);
+        self::$response = curl_exec(self::$curl);
         
         self::handleErrors();
 
-        curl_close($this->curl);
+        curl_close(self::$curl);
 
-        return $this->response;
+        return self::$response;
     }
 }
