@@ -91,7 +91,7 @@ class Request
         curl_setopt(self::$curl, CURLOPT_POSTFIELDS, JSON::stringify($data));
 
         if (count($headers)) {
-            curl_setopt(self::$curl, CURLOPT_HTTPHEADER, $header);
+            curl_setopt(self::$curl, CURLOPT_HTTPHEADER, $headers);
         }
 
         self::$response = curl_exec(self::$curl);
@@ -113,8 +113,8 @@ class Request
     {
         new self($url, 'GET');
 
-        self::$response =  curl_exec(self::$curl);
-        
+        self::$response = curl_exec(self::$curl);
+
         self::handleErrors();
 
         curl_close(self::$curl);
@@ -135,7 +135,7 @@ class Request
         curl_setopt(self::$curl, CURLOPT_POSTFIELDS, $data);
 
         self::$response = curl_exec(self::$curl);
-        
+
         self::handleErrors();
 
         curl_close(self::$curl);
@@ -143,4 +143,3 @@ class Request
         return self::$response;
     }
 }
-

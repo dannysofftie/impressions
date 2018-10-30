@@ -13,11 +13,11 @@ class Products
     /**
      * Get all users from database and return
      *
-     * @return \Models\Product[]
      */
     public static function listProducts()
     {
         $allProducts = Product::all();
+
         echo JSON::stringify($allProducts);
     }
 }

@@ -118,7 +118,7 @@ class Session
      */
     private function generateSessionId()
     {
-        return !$_SESSION ? strtolower(bin2hex(openssl_random_pseudo_bytes(18, $cstrong))) : session_id();
+        return !$_SESSION? strtolower(bin2hex(openssl_random_pseudo_bytes(18, $cstrong))): session_id();
     }
 
     /**
@@ -148,15 +148,15 @@ class Session
      * Find a session by its value and return value
      *
      * @param string $value
-     * @return string
+     * @return 
      */
     public static function getSession(string $value = '')
     {
-       @session_start(); // suppress session has already been started warnings
-        if (!isset($value)) {
+        @session_start(); // suppress session has already been started warnings
+        if (!isset ($value)) {
             return $_SESSION;
         }
-        
+
         return $_SESSION[$value];
     }
 }

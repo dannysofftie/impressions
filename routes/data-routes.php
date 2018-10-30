@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Router handler for data requests, data sent or requested from server must be handled
  * by this route file, errors will be thrown when trying to access unhandled routes.
@@ -14,10 +15,8 @@ use Libraries\Router;
 
 Router::get('/products/categories-list', 'listCategories');
 
-Router::post('/products/:product-name', function ($params) {
+Router::post('/products/:product', function ($params)
+{
     var_dump($params);
-});
-
-Router::post('/products/:product', function ($params) {
-    var_dump($params);
-});
+}
+ );

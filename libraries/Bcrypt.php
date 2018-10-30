@@ -18,9 +18,8 @@ class Bcrypt
      */
     public static function encrypt($value)
     {
-        if (!isset($value)) {
-            throw new Exception('Expected a string to encrypt!');
-            return false;
+        if (!isset ($value)) {
+            throw new \Exception('Expected a string to encrypt!');
         }
         // make hash
         $options = [
@@ -38,9 +37,8 @@ class Bcrypt
      */
     public static function verify($hash, $stringValue)
     {
-        if (!isset($hash) && !isset($stringValue)) {
-            throw new Exception('A hash value and a string to compare expected');
-            return false;
+        if (!isset ($hash) && !isset ($stringValue)) {
+            throw new \Exception('A hash value and a string to compare expected');
         }
         // compare stringValue to the hashValue passed
         return password_verify($stringValue, $hash);

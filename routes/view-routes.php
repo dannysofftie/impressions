@@ -7,6 +7,8 @@
  */
 use Libraries\Router;
 
-Router::get('/', function () {
+Router::get('/', function ()
+{
     include_once 'views/default.php';
-});
+}
+ );

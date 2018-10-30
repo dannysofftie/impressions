@@ -11,6 +11,6 @@ use Libraries\Router;
 // start handling all added routes
 Router::startRouter();
 
-// Router implementation currently handles all requests as
-// get requets, $_SERVER['REQUEST_METHOD'] is not enforced
-// as a constraint when adding routes, and receiving requests from clients.
+// Router implementation will and can handle multiple request schemes with similar signature
+// e.g Router::get('/products') and Router::post('/products')
+// Not limited to specific request schemes

@@ -6,15 +6,6 @@ RewriteEngine on
 # post requests will all be rerouted to their corresponding end points
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /index.php?url=$1 [L,QSA]
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]
 # RewriteRule ^([a-zA-Z]*)/?([a-zA-Z]*)?/?([a-zA-Z0-9]*)?/?$ index.php?url=$1 [NC,L]
-
-# disable caching on localhost
-FileETag None
-<ifModule mod_headers.c>
-Header unset ETag
-Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
-Header set Pragma "no-cache"
-Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
-</ifModule>
 
