@@ -13,7 +13,7 @@
 
 use Libraries\Router;
 
-Router::get('/products/categories-list', 'listCategories');
+Router::get('/products', 'listCategories');
 
 Router::post('/products/:product', function ($params)
 {

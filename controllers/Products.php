@@ -13,6 +13,7 @@ class Products
     /**
      * Get all users from database and return
      *
+     * @return void
      */
     public static function listProducts()
     {

@@ -82,6 +82,7 @@ class Request
      * @param [string] $url external server url
      * @param [array] $data data to send to server
      * @return array
+     * @throws \Exception
      */
     public static function post($url, $data, $headers = [])
     {
@@ -125,7 +126,8 @@ class Request
     /**
      * Make PUT requests to external resources
      *
-     * @param [string] $url
+     * @param $url
+     * @param $data
      * @return array
      */
     public static function put($url, $data)

@@ -9,8 +9,8 @@ class JSON
 {
 
     /**
-     * Encode an object to a json object
-     *
+     * Provide a similar interface to JavaScript's JSON.stringify()
+     * @throws
      * @param [object] $object
      * @return string
      */
@@ -23,8 +23,8 @@ class JSON
     }
 
     /**
-     * Retrieve string content from a json object
-     *
+     * Provide a similar interface to JavaScript's JSON.parse()
+     * @throws
      * @param [string] $value
      * @return mixed
      */

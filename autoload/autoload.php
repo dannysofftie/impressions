@@ -23,7 +23,7 @@ function moduleLoader($directory)
 
 // load all database models
 moduleLoader('models');
-use \Models\Database;
+use Models\Database;
 
 // boot eloquent database
 new Database();

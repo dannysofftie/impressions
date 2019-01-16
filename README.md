@@ -14,8 +14,8 @@ A boilerplate to get you started with your PHP projects easily, with a little to
 
 To get started, clone this repo
 
-``` md
-git clone https://github.com/DannySofftie/php-boilerplate.git 
+```md
+git clone https://github.com/dannysofftie/php-boilerplate.git
 ```
 
 and run
@@ -28,27 +28,29 @@ cd php-boilerplate && composer install
 
 ```js
 autoload
-    - autoload.php
-configs
-    - config.php
+    autoload.php
+configs 
+    config.php
 controllers
-    - Products.php
+    Products.php
 libraries
-    - Bcrypt.php
-    - Json.php
-    - Mailer.php
-    - Request.php
-    - Router.php
-    - Session.php
-models
-    - Database.php
-    - Product.php
+    Bcrypt.php 
+    Json.php 
+    Mailer.php 
+    Request.php 
+    Router.php
+    Session.php
+models 
+    Database.php
+    Product.php;
 routes
-    - data-routes.php
-    - view-routes.php
-uploads
+    data
+        routes.php
+    view
+        routes.php
+uploads;
 views
-    - index.php
+    index.php
 .htaccess
 composer.json
 composer.lock
@@ -71,12 +73,13 @@ use Libraries\Router;
 // start handling all added routes
 Router::startRouter();
 
-// Router implementation currently handles all requests as
-// get requets, $_SERVER['REQUEST_METHOD'] is not enforced
-// as a constraint when adding routes, and receiving requests from clients.
+// Router implementation handles requests as
+// get, post, put, patch and delete requests $_SERVER['REQUEST_METHOD'] is enforced
+// as a constraint when adding routes, and receiving requests from client applications.
 ```
 
-All your routes can be added before calling  
+All your routes can be added before calling
+
 > Router::startRouter();
 
 In view-routes.php,

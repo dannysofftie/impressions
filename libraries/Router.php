@@ -37,7 +37,7 @@ class Router
     public static function get($url, $method = null)
     {
         self::checkRoutes($url, 'GET');
-        self::$routes[] = array ('path' => $url, 'method' => $method, 'request' => 'GET');
+        self::$routes[] = array('path' => $url, 'method' => $method, 'request' => 'GET');
     }
 
     /**
@@ -45,12 +45,12 @@ class Router
      */
     public static function post($url, $method)
     {
-        if (!isset ($method)) {
+        if (!isset($method)) {
             throw new \Exception('Post request requires a method to execute');
         }
 
         self::checkRoutes($url, 'POST');
-        self::$routes[] = array ('path' => $url, 'method' => $method, 'request' => 'POST');
+        self::$routes[] = array('path' => $url, 'method' => $method, 'request' => 'POST');
     }
 
     /**
@@ -58,12 +58,12 @@ class Router
      */
     public static function patch($url, $method)
     {
-        if (!isset ($method)) {
+        if (!isset($method)) {
             throw new \Exception('Patch request requires a method to execute');
         }
 
         self::checkRoutes($url, 'PATCH');
-        self::$routes[] = array ('path' => $url, 'method' => $method, 'request' => 'PATCH');
+        self::$routes[] = array('path' => $url, 'method' => $method, 'request' => 'PATCH');
     }
 
     /**
@@ -71,12 +71,12 @@ class Router
      */
     public static function delete($url, $method)
     {
-        if (!isset ($method)) {
+        if (!isset($method)) {
             throw new \Exception('Delete requests requires a method to execute');
         }
 
         self::checkRoutes($url, 'DELETE');
-        self::$routes[] = array ('path' => $url, 'method' => $method, 'request' => 'DELETE');
+        self::$routes[] = array('path' => $url, 'method' => $method, 'request' => 'DELETE');
     }
 
     /**
@@ -84,12 +84,12 @@ class Router
      */
     public static function put($url, $method)
     {
-        if (!isset ($method)) {
+        if (!isset($method)) {
             throw new \Exception('Put requests requires a method to execute');
         }
 
         self::checkRoutes($url, 'PUT');
-        self::$routes[] = array ('path' => $url, 'method' => $method, 'request' => 'PUT');
+        self::$routes[] = ['path' => $url, 'method' => $method, 'request' => 'PUT'];
     }
 
     /**
@@ -103,7 +103,7 @@ class Router
      */
     private static function checkRoutes($url, $methodType)
     {
-        if (!isset ($url)) {
+        if (!isset($url)) {
             throw new \ErrorException('A string argument expected. Cannot initialize an empty route');
         }
         foreach (self::$routes as $value) {
@@ -147,10 +147,10 @@ class Router
 
         // give precedence to anonymous functions if added
         if (is_callable($method)):
-            return call_user_func($method);
+            call_user_func($method);
         // fallback for when route definition has no anonymous function
         else:
-            return self::groupControllerAndMethods();
+            self::groupControllerAndMethods();
         endif;
     }
 
@@ -159,7 +159,7 @@ class Router
      * This method will be executed when the url exceedes one path specification
      * takes first value as the base controller, second path value is assumed to be
      * a method in base controller
-     * 
+     *
      * @return void
      */
     private static function groupControllerAndMethods()
@@ -167,7 +167,7 @@ class Router
         $method = '';
         // fallback for when route's second argument is a string,
         // referring to a method in base controller.
-        @list ($controller, $methodToExecute) = explode('/', filter_var(trim(self::$incomingUrl, '/'), FILTER_SANITIZE_URL));
+        @list($controller, $methodToExecute) = explode('/', filter_var(trim(self::$incomingUrl, '/'), FILTER_SANITIZE_URL));
 
         $controller = ucfirst($controller);
 
@@ -182,22 +182,18 @@ class Router
 
         if (class_exists($controller) && !class_exists($matchedController)) {
             throw new \Exception("Method $method in base controller $controller not found ");
-        }
-        elseif (!class_exists($matchedController)) {
-            // throw new Exception('Class ' . ucfirst($urlGroup[0]) . ' not found');
+        } elseif (!class_exists($matchedController)) {
             throw new \Exception('Base controller ' . $controller . ' not found');
-        }
-        else {
+        } else {
             // if second argument in path is a method in base controller
             if (method_exists($matchedController, $methodToExecute)):
                 return (new $matchedController())->$methodToExecute();
             // if second argument in path is not a method in base controller,
             // take the second parameter and find a method in base controller
-            elseif
-            (method_exists($matchedController, $method)):
+            elseif (method_exists($matchedController, $method)):
                 (new $matchedController)->$method();
-                // when second argument in path / and second parameter in route are not functions in base controller
-                throw new \BadMethodCallException('Method ' . $method . ' not found in class ' . $matchedController);
+            // when second argument in path / and second parameter in route are not functions in base controller
+            throw new \BadMethodCallException('Method ' . $method . ' not found in class ' . $matchedController);
             endif;
         }
     }

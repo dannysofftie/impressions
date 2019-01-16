@@ -5,6 +5,7 @@
     "require": {
         "illuminate/database": "*",
         "phpmailer/phpmailer": "~6.0",
-        "league/oauth2-google": "*"
+        "league/oauth2-google": "*",
+      "ext-curl": "*"
     }
 }
