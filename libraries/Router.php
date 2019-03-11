@@ -181,9 +181,11 @@ class Router
         }
 
         if (class_exists($controller) && !class_exists($matchedController)) {
-            throw new \Exception("Method $method in base controller $controller not found ");
+            // throw new \Exception("Method $method in base controller $controller not found ");
+            return $this->render404Page("Method $method in base controller $controller not found ");
         } elseif (!class_exists($matchedController)) {
-            throw new \Exception('Base controller ' . $controller . ' not found');
+            // throw new \Exception('Base controller ' . $controller . ' not found');
+            return $this->render404Page('Base controller ' . $controller . ' not found');
         } else {
             // if second argument in path is a method in base controller
             if (method_exists($matchedController, $methodToExecute)):
@@ -191,9 +193,10 @@ class Router
             // if second argument in path is not a method in base controller,
             // take the second parameter and find a method in base controller
             elseif (method_exists($matchedController, $method)):
-                (new $matchedController)->$method();
+                return (new $matchedController)->$method();
             // when second argument in path / and second parameter in route are not functions in base controller
-            throw new \BadMethodCallException('Method ' . $method . ' not found in class ' . $matchedController);
+            // throw new \BadMethodCallException('Method ' . $method . ' not found in class ' . $matchedController);
+            return $this->render404Page('Method ' . $method . ' not found in class ' . $matchedController);
             endif;
         }
     }
@@ -217,5 +220,15 @@ class Router
         $index = array_search($path, array_column(self::$userParamRoutes, 'path'));
 
         echo $index;
+    }
+
+    /**
+     * Render 404 page
+     *
+     * @return void
+     */
+    public function render404Page(string $error = null)
+    {
+        throw new \Exception($error);
     }
 }
