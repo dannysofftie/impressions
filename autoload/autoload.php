@@ -12,7 +12,8 @@ require_once 'vendor/autoload.php';
  */
 function moduleLoader($directory)
 {
-    $modules = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
+    $modules = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory, 0));
+    
     foreach ($modules as $module) {
         if ($module->isDir()) {
             continue;
