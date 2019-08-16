@@ -2,7 +2,8 @@
 
 require_once 'configs/config.php';
 
-require_once 'vendor/autoload.php';
+if (file_exists('vendor'))
+    require_once 'vendor/autoload.php';
 
 /**
  * Module loader function
@@ -13,7 +14,7 @@ require_once 'vendor/autoload.php';
 function moduleLoader($directory)
 {
     $modules = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory, 0));
-    
+
     foreach ($modules as $module) {
         if ($module->isDir()) {
             continue;
@@ -22,14 +23,18 @@ function moduleLoader($directory)
     }
 }
 
-// load all database models
-moduleLoader('models');
+
 use Models\Database;
 
-// boot eloquent database
-new Database();
+if (REQUIRE_DATABASE) {
+    // load all database models
+    moduleLoader('models');
 
-// controllers loader
-moduleLoader('controllers');
+    // boot eloquent database
+    new Database();
+
+    // controllers loader
+    moduleLoader('controllers');
+}
 // load libraries
 moduleLoader('libraries');

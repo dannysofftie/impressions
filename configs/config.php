@@ -12,11 +12,13 @@ if ($offline == 1) {
 // app settings
 define('OFFLINE', $offline == 1);
 
+define('REQUIRE_DATABASE', false);
+
 // database configurations
-define('DB_HOST', $offline? '127.0.0.1': '');
-define('DB_PASSWORD', $offline? 'password': '');
-define('DB_USER', $offline? 'username': '');
-define('DB_NAME', $offline? 'database': '');
+define('DB_HOST', $offline ? '127.0.0.1' : '');
+define('DB_PASSWORD', $offline ? 'password' : '');
+define('DB_USER', $offline ? 'username' : '');
+define('DB_NAME', $offline ? 'database' : '');
 define('DB_DRIVER', 'mysql');
 
 // application level configurations

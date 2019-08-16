@@ -1,4 +1,5 @@
 <?php
+
 namespace Libraries;
 
 use Controllers\Products;
@@ -123,7 +124,7 @@ class Router
      */
     public static function startRouter()
     {
-        self::$incomingUrl = sizeof($_GET) < 1? '/': rtrim('/' . array_keys($_GET)[0], '/');
+        self::$incomingUrl = sizeof($_GET) < 1 ? '/' : rtrim('/' . array_keys($_GET)[0], '/');
 
         $method = '';
         // check if incoming uri path exists in routes table
@@ -131,11 +132,11 @@ class Router
             // group paths when url has user defined parameters
             // e.g. http://example.com/categories/:productname
             // to accept http://example.com/categories/shoes
-            if (preg_match('/\:/', strval($value['path']))):
+            if (preg_match('/\:/', strval($value['path']))) :
                 self::$userParamRoutes[] = $value;
             endif;
 
-            if (strval($value['path']) === self::$incomingUrl && $value['request'] === $_SERVER['REQUEST_METHOD']):
+            if (strval($value['path']) === self::$incomingUrl && $value['request'] === $_SERVER['REQUEST_METHOD']) :
                 $method = $value['method'];
             endif;
         }
@@ -146,10 +147,10 @@ class Router
         }
 
         // give precedence to anonymous functions if added
-        if (is_callable($method)):
+        if (is_callable($method)) :
             call_user_func($method);
         // fallback for when route definition has no anonymous function
-        else:
+        else :
             self::groupControllerAndMethods();
         endif;
     }
@@ -188,15 +189,15 @@ class Router
             return $this->render404Page('Base controller ' . $controller . ' not found');
         } else {
             // if second argument in path is a method in base controller
-            if (method_exists($matchedController, $methodToExecute)):
+            if (method_exists($matchedController, $methodToExecute)) :
                 return (new $matchedController())->$methodToExecute();
             // if second argument in path is not a method in base controller,
             // take the second parameter and find a method in base controller
-            elseif (method_exists($matchedController, $method)):
+            elseif (method_exists($matchedController, $method)) :
                 return (new $matchedController)->$method();
-            // when second argument in path / and second parameter in route are not functions in base controller
-            // throw new \BadMethodCallException('Method ' . $method . ' not found in class ' . $matchedController);
-            return $this->render404Page('Method ' . $method . ' not found in class ' . $matchedController);
+                // when second argument in path / and second parameter in route are not functions in base controller
+                // throw new \BadMethodCallException('Method ' . $method . ' not found in class ' . $matchedController);
+                return $this->render404Page('Method ' . $method . ' not found in class ' . $matchedController);
             endif;
         }
     }
