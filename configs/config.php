@@ -25,3 +25,8 @@ define('DB_DRIVER', 'mysql');
 define('ROOT_PATH', '/');
 define('ROOT_URL', $_SERVER['HTTP_HOST']);
 define('HTTP_PROTOCOL', $_SERVER['REQUEST_SCHEME']);
+
+// php mailer configs
+define('APP_EMAIL_ADDRESS', 'info@example.com');
+define('APP_EMAIL_PASSWORD', 'password$');
+define('APP_EMAIL_HOST', 'mail.example.com');

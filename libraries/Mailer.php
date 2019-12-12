@@ -2,9 +2,7 @@
 
 namespace Libraries;
 
-use Libraries\JSON;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 /**
  * Provides utilities for sending emails, and checking email status.
@@ -20,12 +18,23 @@ class Mailer
         self::$mail = new PHPMailer(true);
         self::$mail->SMTPDebug = 0;
         self::$mail->isSMTP();
-        self::$mail->Host = 'smtp.gmail.com';
-        self::$mail->SMTPAuth = true;
-        self::$mail->Username = APP_EMAIL_ADDRESS;
-        self::$mail->Password = APP_EMAIL_PASSWORD;
-        self::$mail->SMTPSecure = 'tls';
-        self::$mail->Port = 587;
+
+        self::$mail->Host = APP_EMAIL_HOST;
+
+        $this::$mail->SMTPAuth = true;
+        $this::$mail->Username = APP_EMAIL_ADDRESS;
+        $this::$mail->Password = APP_EMAIL_PASSWORD;
+        $this::$mail->SMTPSecure = false;
+
+        $this::$mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+
+        $this::$mail->Port = 25;
     }
 
     /**
@@ -39,8 +48,8 @@ class Mailer
     {
         new self();
 
-        if (!isset ($email) && !isset ($message)) {
-            throw new Exception('Expects an email and message to deliver');
+        if (!isset($email) && !isset($message)) {
+            throw new \Exception('Expects an email and message to deliver');
         }
 
         $sendResult = [];
@@ -54,8 +63,7 @@ class Mailer
             self::$mail->send();
 
             $sendResult = ['message' => 'sent', 'mailAddress' => $email];
-        }
-        catch (Exception $e) {
+        } catch (\Exception $e) {
             $sendResult = ['message' => self::$mail->ErrorInfo, 'mailAddress' => $email];
         }
 

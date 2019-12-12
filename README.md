@@ -4,12 +4,12 @@ A boilerplate to get you started with your PHP projects easily, with a little to
 
 ## Content included
 
-- A simple custom router
+- Router
 - Laravel's ORM Illuminate database library
-- A request library
-- PHPMailer mailing library
+- Request library
+- PHPMailer library
 - Bcrypt library
-- Session library to manage your app sessions easily
+- JSON utility
 - Well defined folder structure
 
 To get started, clone this repo
@@ -39,7 +39,6 @@ libraries
     Mailer.php 
     Request.php 
     Router.php
-    Session.php
 models 
     Database.php
     Product.php;
@@ -116,7 +115,12 @@ In data-routes.php,
 
 use Libraries\Router;
 
+// get request
 Router::get('/products/categories-list', 'listCategories');
+
+// post request
+Router::post('/products', 'createNewProduct');
+
 ```
 
 ## Request

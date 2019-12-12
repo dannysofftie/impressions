@@ -1,4 +1,5 @@
 <?php
+
 namespace Libraries;
 
 /**
@@ -18,13 +19,15 @@ class Bcrypt
      */
     public static function encrypt($value)
     {
-        if (!isset ($value)) {
+        if (!isset($value)) {
             throw new \Exception('Expected a string to encrypt!');
         }
+
         // make hash
         $options = [
             'cost' => 11
         ];
+
         return password_hash($value, PASSWORD_BCRYPT, $options);
     }
 
@@ -37,9 +40,10 @@ class Bcrypt
      */
     public static function verify($hash, $stringValue)
     {
-        if (!isset ($hash) && !isset ($stringValue)) {
+        if (!isset($hash) && !isset($stringValue)) {
             throw new \Exception('A hash value and a string to compare expected');
         }
+
         // compare stringValue to the hashValue passed
         return password_verify($stringValue, $hash);
     }
